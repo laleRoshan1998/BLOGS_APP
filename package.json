@@ -1,0 +1,24 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Roshan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "json": "^11.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.2.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.19",
+    "remove": "^0.1.5",
+    "sqlite3": "^5.0.11",
+    "token": "^0.1.0",
+    "web": "^0.0.2"
+  }
+}
