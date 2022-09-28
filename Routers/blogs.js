@@ -1,7 +1,7 @@
 const express = require('express')
 const { verifytoken } = require('../authentication/jwt')
 const router = express.Router()
-const{blogs_post,Get_all_blogs,update_blogs,Delete_blogs} = require('../controllers/blogs,js')
+const{blogs_post,Get_all_blogs,update_blogs,Delete_blogs} = require('../controllers/blogs.js')
 
 router.post('/blogs',verifytoken,blogs_post)
 

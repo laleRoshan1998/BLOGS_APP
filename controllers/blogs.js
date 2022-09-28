@@ -131,23 +131,45 @@ const update_blogs = (req,res)=>{
 
 const Delete_blogs = (req,res)=>{
     console.log('its working.........');
-    const id = req.params.id
-    console.log(id);
-    if(req.userdata.length == 0){
-        console.log('id is not available');
-        res.send('id is not available')
+    if(req.userdata.length == 0 ){
+        console.log('user not available in database');
+        res.send({
+            'status': 'error',
+            "message": 'user not available in database'
+        })
     } else {
-        console.log('kuchbhi');
-        const user_id = req.userdata[0].id
-        console.log(user_id);
-        if(req.userdata.length == 0){
-            console.log('not is not available');
-            res.send('not available is blogs')
-        }
-        else{
-            console.log(err);
-            res.send(err)
-        }
-   }
+        const id = req.params.id
+        const User_ID = req.userdata[0].id
+        knex('blogs').where({id}).then(async(data1)=>{
+            if(data1.length == 0){
+                console.log('this blogs is not available');
+                res.send({
+                    'status': 'error',
+                    'message': "this blogs is not available"
+                })
+            } else {
+                const user_id = data1[0]['user_id']
+                if(User_ID == user_id){
+                    // await knex('likedislike').where({blogs_id:id})
+                    knex('blogs').where({id}).del().then((info)=>{
+                        console.log('blogs deleteded');
+                        if(info == 1){
+                            res.send({
+                                "status": 'successfull...',
+                                'data': data1
+                            })
+                        }
+                    }).catch((err) =>{
+                        res.send(err.message)
+                    })
+                } else {
+                    res.send({
+                        'status': 'error',
+                        'message': 'this is not your blog'
+                    })
+                }
+            }
+        })
+    }
 }
 module.exports={blogs_post,Get_all_blogs,update_blogs,Delete_blogs} 

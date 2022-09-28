@@ -5,7 +5,7 @@ const knex = require('knex')({
     connection :{
         host: "localhost",
         user: "root",
-        database: "BlogApp",
+        database: "blogapp",
         password: "Roshan@1"
     }
 })
@@ -48,9 +48,11 @@ knex.schema.hasTable('LikeDislike').then(exists =>{
     if(!exists){
         return knex.schema.createTable('LikeDislike', table =>{
             table.increments('id').primary()
-            table.integer('user_id').notNullable()
-            table.boolean('Like')
-            table.boolean('Dislike')
+            table.integer('user_id').unsigned().notNullable()
+            table.integer('blog_id').unsigned().notNullable()
+            table.boolean('Like').nullable()
+            table.foreign('user_id').references('id')
+            table.foreign('blog_id').references('blogs.id')
 
         }).then(()=>{
             console.log('Likes table create successfully.......');
